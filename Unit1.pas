@@ -1,0 +1,211 @@
+﻿unit Unit1;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, KaveNegarUnit, Menus;
+
+type
+  TForm1 = class(TForm)
+    KaveNegar1: TKaveNegar;
+    Memo2: TMemo;
+    Button1: TButton;
+    Button2: TButton;
+    Button3: TButton;
+    Button4: TButton;
+    Button5: TButton;
+    Button6: TButton;
+    Button7: TButton;
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
+    procedure Button5Click(Sender: TObject);
+    procedure Button6Click(Sender: TObject);
+    procedure Button7Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.Button1Click(Sender: TObject);
+var
+  knMessageDataArr:TknMessageDataArr;
+  R:TKNStatus;
+  I:SmallInt;
+begin
+  if KaveNegar1.Active then
+    R:=KaveNegar1.SendMessage(knMessageDataArr);
+  Memo2.Lines.Append(format('Status         : %d',[R.StatusValue]));
+  Memo2.Lines.Append(format('Status Message : %s',[R.StatusMsg]));
+  Memo2.Lines.Append('=================================');
+  for I := 0 to Length(knMessageDataArr)-1 do
+    begin
+      Memo2.Lines.Append(format('Message ID  : %d',[knMessageDataArr[i].MessageID]));
+      Memo2.Lines.Append(format('MessageText : %s',[knMessageDataArr[i].MessageText]));
+      Memo2.Lines.Append(format('Status      : %d',[knMessageDataArr[i].Status]));
+      Memo2.Lines.Append(format('StatusText  : %s',[knMessageDataArr[i].StatusText]));
+      Memo2.Lines.Append(format('Sender      : %d',[knMessageDataArr[i].Sender]));
+      Memo2.Lines.Append(format('Receptor    : %s',[knMessageDataArr[i].Receptor]));
+      Memo2.Lines.Append(format('Date        : %s',[DateTimetoStr(knMessageDataArr[i].Date)]));
+      Memo2.Lines.Append(format('Cost        : %d',[knMessageDataArr[i].Cost]));
+      Memo2.Lines.Append('---------------------------------');
+    end;
+  Memo2.Lines.Append('=================================');
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+var
+  knMessageDataArr:TknMessageDataArr;
+  R:TKNStatus;
+  MessageID:TStrings;
+  I:SmallInt;
+begin
+  MessageID:=TStringList.Create;
+  MessageID.Append('137234');
+  MessageID.Append('136823');
+  MessageID.Append('137009');
+  if KaveNegar1.Active then
+    R:=KaveNegar1.GetMessageData(MessageID, knMessageDataArr);
+  Memo2.Lines.Append(format('Status         : %d',[R.StatusValue]));
+  Memo2.Lines.Append(format('Status Message : %s',[R.StatusMsg]));
+  Memo2.Lines.Append('=================================');
+  for I := 0 to Length(knMessageDataArr)-1 do
+    begin
+      Memo2.Lines.Append(format('Message ID  : %d',[knMessageDataArr[i].MessageID]));
+      Memo2.Lines.Append(format('MessageText : %s',[knMessageDataArr[i].MessageText]));
+      Memo2.Lines.Append(format('Status      : %d',[knMessageDataArr[i].Status]));
+      Memo2.Lines.Append(format('StatusText  : %s',[knMessageDataArr[i].StatusText]));
+      Memo2.Lines.Append(format('Sender      : %d',[knMessageDataArr[i].Sender]));
+      Memo2.Lines.Append(format('Receptor    : %s',[knMessageDataArr[i].Receptor]));
+      Memo2.Lines.Append(format('Date        : %s',[DateTimetoStr(knMessageDataArr[i].Date)]));
+      Memo2.Lines.Append(format('Cost        : %d',[knMessageDataArr[i].Cost]));
+      Memo2.Lines.Append('---------------------------------');
+    end;
+  Memo2.Lines.Append('=================================');
+end;
+
+procedure TForm1.Button3Click(Sender: TObject);
+var
+  knStatusDataArr:TknStatusDataArr;
+  R:TKNStatus;
+  MessageID:TStrings;
+  I:SmallInt;
+begin
+  MessageID:=TStringList.Create;
+  MessageID.Append('137234');
+  MessageID.Append('136907');
+  MessageID.Append('136666');
+  if KaveNegar1.Active then
+    R:=KaveNegar1.GetMessageStatus(MessageID, knStatusDataArr);
+  Memo2.Lines.Append(format('Status         : %d',[R.StatusValue]));
+  Memo2.Lines.Append(format('Status Message : %s',[R.StatusMsg]));
+  Memo2.Lines.Append('=================================');
+  for I := 0 to Length(knStatusDataArr)-1 do
+    begin
+      Memo2.Lines.Append(format('Message ID : %d',[knStatusDataArr[i].MessageID]));
+      Memo2.Lines.Append(format('Status     : %d',[knStatusDataArr[i].Status]));
+      Memo2.Lines.Append(format('StatusText : %s',[knStatusDataArr[i].StatusText]));
+      Memo2.Lines.Append('---------------------------------');
+    end;
+  Memo2.Lines.Append('=================================');
+end;
+
+procedure TForm1.Button4Click(Sender: TObject);
+var
+  knStatusDataArr:TknStatusDataArr;
+  R:TKNStatus;
+  MessageID:TStrings;
+  I:SmallInt;
+begin
+  MessageID:=TStringList.Create;
+  MessageID.Append('137234');
+  MessageID.Append('136907');
+  MessageID.Append('136666');
+  if KaveNegar1.Active then
+    R:=KaveNegar1.CancelMessage(MessageID, knStatusDataArr);
+  Memo2.Lines.Append(format('Status         : %d',[R.StatusValue]));
+  Memo2.Lines.Append(format('Status Message : %s',[R.StatusMsg]));
+  Memo2.Lines.Append('=================================');
+  for I := 0 to Length(knStatusDataArr)-1 do
+    begin
+      Memo2.Lines.Append(format('Message ID : %d',[knStatusDataArr[i].MessageID]));
+      Memo2.Lines.Append(format('Status     : %d',[knStatusDataArr[i].Status]));
+      Memo2.Lines.Append(format('StatusText : %s',[knStatusDataArr[i].StatusText]));
+      Memo2.Lines.Append('---------------------------------');
+    end;
+  Memo2.Lines.Append('=================================');
+end;
+
+procedure TForm1.Button5Click(Sender: TObject);
+var
+  knMessageDataArr:TknMessageDataArr;
+  R:TKNStatus;
+  I:SmallInt;
+begin
+  if KaveNegar1.Active then
+    R:=KaveNegar1.ReadMessage(False, knMessageDataArr);
+  Memo2.Lines.Append(format('Status         : %d',[R.StatusValue]));
+  Memo2.Lines.Append(format('Status Message : %s',[R.StatusMsg]));
+  Memo2.Lines.Append('=================================');
+  for I := 0 to Length(knMessageDataArr)-1 do
+    begin
+      Memo2.Lines.Append(format('Message ID  : %d',[knMessageDataArr[i].MessageID]));
+      Memo2.Lines.Append(format('MessageText : %s',[knMessageDataArr[i].MessageText]));
+      Memo2.Lines.Append(format('Sender      : %d',[knMessageDataArr[i].Sender]));
+      Memo2.Lines.Append(format('Receptor    : %s',[knMessageDataArr[i].Receptor]));
+      Memo2.Lines.Append(format('Date        : %s',[DateTimetoStr(knMessageDataArr[i].Date)]));
+      Memo2.Lines.Append('---------------------------------');
+    end;
+  Memo2.Lines.Append('=================================');
+end;
+
+procedure TForm1.Button6Click(Sender: TObject);
+var
+  knMessageDataArr:TknMessageDataArr;
+  R:TKNStatus;
+  I:SmallInt;
+begin
+  if KaveNegar1.Active then
+    R:=KaveNegar1.ReadMessage(True, knMessageDataArr);
+  Memo2.Lines.Append(format('Status         : %d',[R.StatusValue]));
+  Memo2.Lines.Append(format('Status Message : %s',[R.StatusMsg]));
+  Memo2.Lines.Append('=================================');
+  for I := 0 to Length(knMessageDataArr)-1 do
+    begin
+      Memo2.Lines.Append(format('Message ID  : %d',[knMessageDataArr[i].MessageID]));
+      Memo2.Lines.Append(format('MessageText : %s',[knMessageDataArr[i].MessageText]));
+      Memo2.Lines.Append(format('Sender      : %d',[knMessageDataArr[i].Sender]));
+      Memo2.Lines.Append(format('Receptor    : %s',[knMessageDataArr[i].Receptor]));
+      Memo2.Lines.Append(format('Date        : %s',[DateTimetoStr(knMessageDataArr[i].Date)]));
+      Memo2.Lines.Append('---------------------------------');
+    end;
+  Memo2.Lines.Append('=================================');
+end;
+
+procedure TForm1.Button7Click(Sender: TObject);
+var
+  knAccountInfo:TknAccountInfo;
+  R:TKNStatus;
+begin
+  if KaveNegar1.Active then
+    R:=KaveNegar1.GetAccountInformation(knAccountInfo);
+  Memo2.Lines.Append(format('Status         : %d',[R.StatusValue]));
+  Memo2.Lines.Append(format('Status Message : %s',[R.StatusMsg]));
+  Memo2.Lines.Append('=================================');
+  Memo2.Lines.Append(format('RemainCredit : %d',[knAccountInfo.Remaincredit]));
+  Memo2.Lines.Append(format('Expire Date  : %s',[DateTimetoStr(knAccountInfo.ExpireDate)]));
+  Memo2.Lines.Append(format('Account Type : %s',[knAccountInfo.AccountType]));
+  Memo2.Lines.Append('=================================');
+end;
+
+end.
